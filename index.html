@@ -164,7 +164,7 @@ function recordOutcome(id,key){
  rec.calls=[...calls,{date:localDay(),status:key,callbackAttempt:isCallback,recordedAt:new Date().toISOString()}];
  rec.status=key;
  if(key==='no'||key==='pending')rec.confirmed=false;
- if(key==='wait'&&isCallback&&n>=2){rec.status='closed';rec.closedReason='callback_limit';}
+ if(isCallback&&key==='wait'){rec.status='closed';rec.closedReason='callback_limit';rec.interestNextDate='';}
  if(!persist())return;
  render();
 }
@@ -371,13 +371,8 @@ That's a good question. I don't want to give you incorrect information, but I ca
     callbackDate.setAttribute('aria-label',callbackLabel.textContent);
     callbackDate.onchange=()=>{getRecord(b.id).interestNextDate=callbackDate.value;persist()};
     const callbackHint=document.createElement('small');callbackHint.textContent=lang==='es'?'Elija la fecha acordada. Se guarda automáticamente.':'Choose the agreed date. It saves automatically.';
-    const attempts=callbackCount(r);
-    const countLabel=document.createElement('div');countLabel.className='callback-attempt-counter';
-    countLabel.textContent=(lang==='es'?'Devoluciones realizadas: ':'Callbacks completed: ')+Math.min(attempts,2)+' / 2';
-    const countHint=document.createElement('small');
-    countHint.textContent=lang==='es'?'Máximo dos devoluciones. Después de la segunda, no se vuelve a llamar.':'Maximum two callbacks. After the second, no further calls.';
-    callbackBox.append(callbackLabel,callbackDate,countLabel,countHint,callbackHint);
-    outcome.after(callbackBox);
+    callbackBox.append(callbackLabel,callbackDate,callbackHint);
+    outcome.append(callbackBox);
    }
    const sponsor=document.createElement('label');sponsor.className='sent sponsor';const sponsorCheck=document.createElement('input');sponsorCheck.type='checkbox';sponsorCheck.checked=!!r.confirmed;
    sponsorCheck.onchange=()=>{const rec=getRecord(b.id);rec.confirmed=sponsorCheck.checked;if(rec.confirmed)rec.status='yes';persist();renderStatusLegend();renderLeads();updateGoal();renderPriorities()};
