@@ -204,6 +204,34 @@ button{letter-spacing:.005em}
 .lead{border-radius:15px!important}
 .lead.selected{border-color:#e8c987!important}
 @media(max-width:700px){body{font-size:15px!important}}
+
+/* Broadcast-grade typography: crisp newsroom headlines, legible terminal data. */
+:root{--broadcast-font:"Arial Narrow","Roboto Condensed","Aptos Display","Segoe UI",Arial,sans-serif;--broadcast-body:"Segoe UI",Arial,Helvetica,sans-serif}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:var(--broadcast-body)!important;font-size:17px!important;line-height:1.58!important;letter-spacing:.005em!important}
+header h1#executiveTitle{font-family:var(--broadcast-font)!important;font-weight:950!important;font-stretch:condensed;letter-spacing:-.028em!important;text-transform:uppercase;font-size:clamp(34px,4vw,57px)!important;line-height:1.07!important;text-shadow:0 3px 12px #001b13a6}
+.easy-workflow h2{font-family:var(--broadcast-font)!important;font-size:clamp(30px,3.3vw,46px)!important;font-weight:950!important;letter-spacing:-.025em!important;line-height:1.14!important}
+.executive-eyebrow,.easy-eyebrow{font-family:var(--broadcast-font)!important;font-weight:950!important;letter-spacing:.15em!important;font-size:15px!important;text-transform:uppercase}
+header .sub,.easy-hint{font-family:var(--broadcast-body)!important;font-size:17px!important;font-weight:650!important;line-height:1.55!important}
+.panel h2,.goal h2,.daily-heading h2,.inline-workflow h3{font-family:var(--broadcast-font)!important;font-weight:950!important;letter-spacing:-.012em!important;font-size:clamp(22px,2vw,29px)!important;line-height:1.22!important}
+.easy-chip strong,.numbers,.rail-counter #railCallsNumber,.priority-count,.daily-metrics strong{font-family:"Arial",var(--broadcast-body)!important;font-weight:900!important;font-variant-numeric:tabular-nums lining-nums!important;letter-spacing:-.045em!important}
+.easy-chip{font-size:15px!important;line-height:1.35!important;letter-spacing:.02em}
+.easy-chip strong{font-size:39px!important}
+.desk-chart-head strong{font-family:var(--broadcast-font)!important;font-size:19px!important;letter-spacing:.09em!important}
+.desk-chart-head span{font-family:Arial,sans-serif!important;font-size:20px!important;font-weight:900!important;font-variant-numeric:tabular-nums!important}
+.desk-legend-item{font-size:15px!important;font-weight:850!important}
+button,a.btn,select,input,textarea{font-family:var(--broadcast-body)!important;font-size:16px;font-weight:750;letter-spacing:.006em}
+button,a.btn{font-weight:900!important}
+.lead .lead-toggle,.lead .lead-toggle button{font-family:var(--broadcast-font)!important;font-weight:900!important}
+.lead .lead-toggle .status-pill{font-size:14px!important;letter-spacing:.035em!important;text-transform:uppercase}
+.inline-workflow .script{font-size:18px!important;line-height:1.65!important;font-weight:500!important;letter-spacing:.004em}
+.inline-workflow .field-label,.easy-bar label{font-size:14px!important;font-weight:900!important;letter-spacing:.045em!important;text-transform:uppercase}
+.callback-date-box label{font-family:var(--broadcast-font)!important;font-weight:950!important;letter-spacing:.045em!important}
+.callback-saved-date{font-size:17px!important}
+.rail-counter #railCallsTitle{font-family:var(--broadcast-font)!important;font-size:17px!important;letter-spacing:.07em!important}
+.rail-counter #railCallsNumber{font-size:56px!important}
+.panel,.lead,.easy-workflow,.desk-chart{font-feature-settings:"kern" 1,"tnum" 1}
+@media(max-width:700px){body{font-size:16px!important}header h1#executiveTitle{font-size:35px!important}.easy-chip strong{font-size:32px!important}.inline-workflow .script{font-size:17px!important}}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div class="executive-identity"><div class="executive-eyebrow">HIGHLAND LAKES LIVE <span class="executive-dot">◆</span> OUTREACH DESK</div><h1 id="executiveTitle">Blanca’s Calling Sheet</h1><div class="sub" id="subtitle">Panel profesional de llamadas de Blanca</div><div class="executive-accent"></div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
 <section class="panel easy-workflow" id="easyWorkflow">
 <div class="easy-eyebrow" id="easyEyebrow">MI MESA DE TRABAJO</div>
