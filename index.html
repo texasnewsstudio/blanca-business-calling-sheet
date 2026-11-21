@@ -353,31 +353,10 @@ That's a good question. I don't want to give you incorrect information, but I ca
     btn.onclick=()=>recordOutcome(b.id,key);
     outcome.append(btn)
    }
-   const interestPanel=document.createElement('section');interestPanel.className='interest-panel';interestPanel.id='interestPanel'+b.id;
-   const interestTitle=document.createElement('h3');interestTitle.textContent=lang==='es'?'👍 Interesado — seguimiento sencillo':'👍 Interested — simple follow-up';
-   interestPanel.append(interestTitle);
-   const noteLabel=document.createElement('label');noteLabel.textContent=lang==='es'?'Nota breve (opcional)':'Short note (optional)';
-   const note=document.createElement('textarea');note.rows=2;note.placeholder=lang==='es'?'¿Qué pidió? ¿Qué sigue?':'What did they ask for? What next?';note.value=r.interestReason||'';
-   note.oninput=()=>{getRecord(b.id).interestReason=note.value;persist()};
-   const dateLabel2=document.createElement('label');dateLabel2.textContent=lang==='es'?'Fecha para volver a contactar (opcional)':'Follow-up date (optional)';
-   const followDate=document.createElement('input');followDate.type='date';followDate.id='interestNextDate'+b.id;followDate.value=r.interestNextDate||'';
-   followDate.onchange=()=>{getRecord(b.id).interestNextDate=followDate.value;persist()};
-   interestPanel.append(noteLabel,note,dateLabel2,followDate);
-   const followWrap=document.createElement('details');followWrap.className='date-history';followWrap.open=status==='yes'||status==='wait'||!!r.interestNextDate;
-   const followSummary=document.createElement('summary');followSummary.textContent=lang==='es'?'📝 Nota rápida y próxima fecha':'📝 Quick note and next date';followWrap.append(followSummary,interestPanel);
    const sponsor=document.createElement('label');sponsor.className='sent sponsor';const sponsorCheck=document.createElement('input');sponsorCheck.type='checkbox';sponsorCheck.checked=!!r.confirmed;
    sponsorCheck.onchange=()=>{const rec=getRecord(b.id);rec.confirmed=sponsorCheck.checked;if(rec.confirmed)rec.status='yes';persist();renderStatusLegend();renderLeads();updateGoal();renderPriorities()};
    sponsor.append(sponsorCheck,document.createTextNode(lang==='es'?' Patrocinador confirmado (solo después del pago)':' Sponsor confirmed (only after payment)'));
-   const callback=document.createElement('div');callback.className='callback-info';
-    const attempts=callbackCount(r);
-    callback.textContent=status==='closed'?(lang==='es'?'⛔ FINALIZADO — NO LLAMAR MÁS':'⛔ FINISHED — NO MORE CALLS'):(lang==='es'?`📞 Devoluciones realizadas: ${attempts}/2 · ${status==='wait'?'Próxima: llamada '+(attempts+1):'Sin devolución pendiente'}`:`📞 Callbacks completed: ${attempts}/2 · ${status==='wait'?'Next: callback '+(attempts+1):'No callback pending'}`);
-    const history=document.createElement('details');history.className='date-history';
-    const summary=document.createElement('summary');summary.textContent=lang==='es'?'📝 Notas e historial de llamadas':'📝 Notes and call history';history.append(summary);
-    const notesLabel=document.createElement('label');notesLabel.className='field-label';notesLabel.textContent=lang==='es'?'NOTAS':'NOTES';
-    const notes=document.createElement('textarea');notes.className='notes';notes.rows=2;notes.value=r.notes||'';notes.oninput=()=>{getRecord(b.id).notes=notes.value;persist()};
-    history.append(notesLabel,notes);
-    (r.calls||[]).forEach((c,i)=>{const line=document.createElement('div');line.textContent=`${i+1}. ${c.date} · ${c.callbackAttempt?(lang==='es'?'Devolución':'Callback')+' · ':''}${statusLabel(c.status)}`;history.append(line)});
-    inline.append(scriptTitle,script,faq,emailLabel,em,extraContact,outcomeTitle,outcome,followWrap,callback,history,sponsor);
+   inline.append(scriptTitle,script,faq,emailLabel,em,extraContact,outcomeTitle,outcome,sponsor);
    d.append(inline)
   }
   root.append(d)
