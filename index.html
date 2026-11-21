@@ -140,6 +140,12 @@ header .lang.active{background:#e7c17b!important;color:#102a46!important;border-
 .desk-legend-item i{width:11px;height:11px;border-radius:3px;display:inline-block}
 .easy-reminder{margin-top:19px!important;color:#c7e1f1!important;font-size:13px!important}
 @media(max-width:700px){.easy-workflow{padding:22px 16px!important}.easy-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.easy-bar{grid-template-columns:1fr!important}.easy-bar button{width:100%}.desk-chart{padding:14px}}
+
+/* Visible, persistent callback date confirmation. */
+.callback-date-box{width:100%;margin:12px 0 15px!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;background:#283b26!important;border:3px solid #f4bd43!important;padding:20px!important}
+.callback-date-box label{font-size:18px!important;color:#ffe7a7!important}
+.callback-date-box input[type=date]{width:100%!important;max-width:380px!important;min-height:52px!important;font-size:19px!important;background:#fff!important;color:#152238!important;color-scheme:light!important;border:2px solid #e9ba5a!important}
+.callback-saved-date{display:block;background:#123e32;color:#d8ffe5;font-size:16px;font-weight:900;padding:12px 14px;border-radius:9px;border:1px solid #3bb87c}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div class="executive-identity"><div class="executive-eyebrow">HIGHLAND LAKES LIVE <span class="executive-dot">◆</span> OUTREACH DESK</div><h1 id="executiveTitle">Blanca’s Calling Sheet</h1><div class="sub" id="subtitle">Panel profesional de llamadas de Blanca</div><div class="executive-accent"></div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
 <section class="panel easy-workflow" id="easyWorkflow">
 <div class="easy-eyebrow" id="easyEyebrow">MI MESA DE TRABAJO</div>
@@ -443,15 +449,16 @@ That's a good question. I don't want to give you incorrect information, but I ca
     const callbackLabel=document.createElement('label');callbackLabel.textContent=lang==='es'?'📅 FECHA PARA VOLVER A LLAMAR':'📅 DATE TO CALL BACK';
     const callbackDate=document.createElement('input');callbackDate.type='date';callbackDate.value=r.interestNextDate||'';
     callbackDate.setAttribute('aria-label',callbackLabel.textContent);
-    callbackDate.onchange=()=>{getRecord(b.id).interestNextDate=callbackDate.value;persist()};
+    callbackDate.oninput=callbackDate.onchange=()=>{const rec=getRecord(b.id);rec.interestNextDate=callbackDate.value;if(persist()){savedDate.textContent=callbackDate.value?(lang==='es'?'✓ Fecha guardada: ':'✓ Saved callback: ')+new Date(callbackDate.value+'T12:00:00').toLocaleDateString(lang==='es'?'es-US':'en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}):(lang==='es'?'Seleccione una fecha':'Select a date');}};
     const callbackHint=document.createElement('small');callbackHint.textContent=lang==='es'?'Elija la fecha acordada. Se guarda automáticamente.':'Choose the agreed date. It saves automatically.';
-    callbackBox.append(callbackLabel,callbackDate,callbackHint);
-    outcome.append(callbackBox);
+    const savedDate=document.createElement('strong');savedDate.className='callback-saved-date';savedDate.textContent=callbackDate.value?(lang==='es'?'✓ Fecha guardada: ':'✓ Saved callback: ')+new Date(callbackDate.value+'T12:00:00').toLocaleDateString(lang==='es'?'es-US':'en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}):(lang==='es'?'Seleccione una fecha':'Select a date');
+    callbackBox.append(callbackLabel,callbackDate,savedDate,callbackHint);
+    inline.append(outcomeTitle,outcome,callbackBox);
    }
    const sponsor=document.createElement('label');sponsor.className='sent sponsor';const sponsorCheck=document.createElement('input');sponsorCheck.type='checkbox';sponsorCheck.checked=!!r.confirmed;
    sponsorCheck.onchange=()=>{const rec=getRecord(b.id);rec.confirmed=sponsorCheck.checked;if(rec.confirmed)rec.status='yes';persist();renderStatusLegend();renderLeads();updateGoal();renderPriorities()};
    sponsor.append(sponsorCheck,document.createTextNode(lang==='es'?' Patrocinador confirmado (solo después del pago)':' Sponsor confirmed (only after payment)'));
-   inline.append(scriptTitle,script,faq,emailLabel,em,extraContact,outcomeTitle,outcome,sponsor);
+   inline.append(scriptTitle,script,faq,emailLabel,em,extraContact);if(status!=='wait')inline.append(outcomeTitle,outcome);inline.append(sponsor);
    d.append(inline)
   }
   root.append(d)
