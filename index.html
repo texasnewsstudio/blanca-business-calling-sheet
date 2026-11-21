@@ -157,6 +157,21 @@ header .lang.active{background:#e7c17b!important;color:#102a46!important;border-
 .desk-legend-item{direction:ltr!important;display:inline-flex!important;flex-direction:row!important;font-size:15px!important;font-weight:850!important;gap:9px!important}
 .desk-legend-item i{width:17px!important;height:17px!important;flex:none!important;border-radius:4px!important}
 @media(max-width:700px){.desk-chart{padding:19px 16px!important}.desk-chart-head{gap:8px!important;flex-wrap:wrap!important}.desk-chart-head strong{font-size:15px!important}.desk-chart-head span{font-size:14px!important}.desk-chart-track{height:31px!important}.desk-legend-item{font-size:13px!important}}
+
+/* Wide-screen executive layout: use the space beside Today's Calls rail. */
+@media(min-width:1300px){
+ main{width:calc(100vw - 270px)!important;max-width:none!important;margin-left:245px!important;margin-right:25px!important;padding:18px 10px 24px!important}
+ .calling-rail{left:12px!important}
+}
+@media(min-width:1000px) and (max-width:1299px){
+ main{max-width:1160px!important;width:calc(100% - 30px)!important}
+}
+@media(min-width:1300px){
+ .easy-stats{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .desk-chart{width:100%!important}
+ .panel,.goal,header{width:100%!important}
+}
+@media(max-width:999px){main{width:100%;max-width:100%!important}}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div class="executive-identity"><div class="executive-eyebrow">HIGHLAND LAKES LIVE <span class="executive-dot">◆</span> OUTREACH DESK</div><h1 id="executiveTitle">Blanca’s Calling Sheet</h1><div class="sub" id="subtitle">Panel profesional de llamadas de Blanca</div><div class="executive-accent"></div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
 <section class="panel easy-workflow" id="easyWorkflow">
 <div class="easy-eyebrow" id="easyEyebrow">MI MESA DE TRABAJO</div>
