@@ -65,6 +65,8 @@ select option{background:#10283d;color:#f1f7fc}
 
 /* Keep WhatsApp and SMS contact fields visible without expandable controls. */
 .contact-fields-always-visible{display:grid;gap:9px;padding:5px 0 12px}.contact-fields-always-visible .field-label{margin:5px 0 0}.contact-fields-always-visible .emailbox{width:100%;margin:0}
+
+.callback-attempt-counter{display:inline-block;align-self:flex-start;border-radius:8px;background:#1c3b50;border:1px solid #b79a59;color:#ffe2a2;padding:8px 12px;font-size:14px;font-weight:850}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div><h1>Highland Lakes Live</h1><div class="sub" id="subtitle">Hoja fácil de llamadas para Blanca</div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
 <section class="panel easy-workflow" id="easyWorkflow">
 <div class="easy-eyebrow" id="easyEyebrow">MI MESA DE TRABAJO</div>
@@ -369,7 +371,12 @@ That's a good question. I don't want to give you incorrect information, but I ca
     callbackDate.setAttribute('aria-label',callbackLabel.textContent);
     callbackDate.onchange=()=>{getRecord(b.id).interestNextDate=callbackDate.value;persist()};
     const callbackHint=document.createElement('small');callbackHint.textContent=lang==='es'?'Elija la fecha acordada. Se guarda automáticamente.':'Choose the agreed date. It saves automatically.';
-    callbackBox.append(callbackLabel,callbackDate,callbackHint);
+    const attempts=callbackCount(r);
+    const countLabel=document.createElement('div');countLabel.className='callback-attempt-counter';
+    countLabel.textContent=(lang==='es'?'Devoluciones realizadas: ':'Callbacks completed: ')+Math.min(attempts,2)+' / 2';
+    const countHint=document.createElement('small');
+    countHint.textContent=lang==='es'?'Máximo dos devoluciones. Después de la segunda, no se vuelve a llamar.':'Maximum two callbacks. After the second, no further calls.';
+    callbackBox.append(callbackLabel,callbackDate,countLabel,countHint,callbackHint);
     outcome.after(callbackBox);
    }
    const sponsor=document.createElement('label');sponsor.className='sent sponsor';const sponsorCheck=document.createElement('input');sponsorCheck.type='checkbox';sponsorCheck.checked=!!r.confirmed;
