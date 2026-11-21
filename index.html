@@ -50,12 +50,19 @@ select option{background:#10283d;color:#f1f7fc}
 .assistant-active-card .date-history summary{color:#eaf2fa}
 .assistant-active-card .date-history .script{color:#eaf2fa}
 @media(max-width:900px){.assistant-grid{grid-template-columns:1fr}}
+
+/* Streamlined bilingual calling workspace; retains existing data fields and scripts. */
+.easy-workflow{border-color:#a78b57!important}.easy-eyebrow{font-size:11px;letter-spacing:.17em;color:#d8b878;font-weight:900;margin-bottom:8px}.easy-workflow h2{margin:0 0 6px}.easy-hint{color:#b9c9d7;font-size:14px;line-height:1.5;margin:0 0 17px}.easy-bar{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:end}.easy-bar label{grid-column:1/-1;color:#e5edf6;font-size:13px;font-weight:800}.easy-bar select{min-width:0;width:100%;padding:12px;background:#0c1e2f;color:#fff;border:1px solid #58768e;border-radius:9px;font:inherit}.easy-stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.easy-chip{border:1px solid #44647b;border-radius:9px;padding:10px 13px;background:#1a344a;color:#e4eff8;font-size:13px}.easy-chip strong{color:#f4dfab;font-size:19px;margin-right:6px}.easy-reminder{margin-top:14px;font-size:13px;color:#b9c9d7}.easy-workflow .easy-bar button{white-space:nowrap}
+.inline-workflow{display:grid;grid-template-columns:1fr;gap:10px;padding:18px!important}.inline-workflow>h3{margin:9px 0 0}.inline-workflow>.script{background:#0c1e2f;border-left:3px solid #d8b878;padding:16px;border-radius:9px}.inline-workflow .field-label{margin:7px 0 0}.inline-workflow .emailbox{margin:0}.inline-workflow .row{margin-top:5px}.inline-workflow .interest-panel{background:#142f43;border:1px solid #42627a;border-radius:11px;padding:15px;display:grid;gap:9px}.inline-workflow .interest-panel h3{margin:0;color:#fff}.inline-workflow .interest-panel textarea,.inline-workflow .interest-panel input{width:100%;padding:12px;background:#0c1e2f;color:#f1f7fc;border:1px solid #58768e;border-radius:9px;font:inherit}.inline-workflow .interest-panel label{font-size:13px;font-weight:750;color:#c9d7e3}.inline-workflow .date-history{background:#142d42!important;color:#eaf2fa!important;border:1px solid #44647b!important;border-radius:9px;padding:12px}.inline-workflow .date-history summary{color:#f1e0b6;cursor:pointer}.inline-workflow .date-history .script{color:#eaf2fa}.inline-workflow .callback-info{color:#d5e5f1;font-size:13px}.inline-workflow .sponsor{font-size:13px}.lead.selected{border-color:#d8b878}.lead.closed{opacity:.75}
+@media(max-width:700px){.easy-bar{grid-template-columns:1fr}.easy-bar button{width:100%}}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div><h1>Highland Lakes Live</h1><div class="sub" id="subtitle">Hoja fácil de llamadas para Blanca</div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
-<section class="panel assistant-panel" id="blancaAssistant" aria-label="Calling assistant">
-<div class="assistant-heading"><div><div class="assistant-kicker" id="assistantKicker">ASISTENTE DE LLAMADAS</div><h2 id="assistantTitle">Tu próxima llamada</h2><p class="assistant-help" id="assistantHelp">Empieza con los negocios que necesitan seguimiento.</p></div><div class="assistant-view"><button type="button" class="secondary" id="simpleModeBtn" onclick="toggleBlancaSimpleMode()">Modo sencillo</button></div></div>
-<div class="assistant-stats" id="assistantStats" aria-live="polite"></div>
-<div class="assistant-grid"><div class="assistant-next" id="assistantNext" aria-live="polite"></div><div class="assistant-followups"><h3 id="assistantFollowTitle">Seguimientos prioritarios</h3><div id="assistantFollowList"></div></div></div>
-<details class="assistant-guide"><summary id="assistantGuideTitle">💬 ¿Qué digo ahora? · Respuestas cortas</summary><div class="assistant-guide-body"><label for="assistantObjection" id="assistantObjectionLabel">Seleccione la respuesta del cliente</label><select id="assistantObjection" onchange="drawBlancaGuide()"></select><div id="assistantObjectionReply" class="assistant-reply"></div></div></details>
+<section class="panel easy-workflow" id="easyWorkflow">
+<div class="easy-eyebrow" id="easyEyebrow">MI MESA DE TRABAJO</div>
+<h2 id="easyHeading">Una llamada a la vez</h2>
+<p class="easy-hint" id="easyHint">Elige un negocio, llama desde tu teléfono y registra el resultado en su ficha.</p>
+<div class="easy-bar"><label for="easyBusiness" id="easyBusinessLabel">Negocio</label><select id="easyBusiness" onchange="openEasyBusiness(Number(this.value))"></select><button class="secondary" id="easyNext" onclick="nextEasyBusiness()">Siguiente →</button></div>
+<div class="easy-stats" id="easyStats"></div>
+<div class="easy-reminder" id="easyReminder"></div>
 </section>
 <section class="goal"><h2 id="goalTitle">🎯 META: 50 PATROCINADORES</h2><div class="numbers"><span id="total">0</span> / 50 &nbsp;·&nbsp; <span id="revenue">$0</span> / $500</div><div class="track"><div class="fill" id="fill"></div></div><p class="mini" id="goalNote" style="color:#d7e2f1">Estimación a $10 por patrocinador al mes; no confirma pagos.</p></section>
 <section class="panel" style="margin-top:16px;padding:15px"><label for="batchSelect" id="batchSelectLabel" style="display:block;font-weight:900;margin-bottom:8px">📂 Seleccionar lista de llamadas</label><select id="batchSelect" onchange="switchBatch(Number(this.value))" style="width:100%;font:inherit;font-weight:750;padding:13px;border:2px solid #91a9ce;border-radius:10px;background:#fff"><option value="1">Negocios 1–100 · Lista original</option><option value="2">Negocios 101–139 · Segunda lista</option><option value="3">Negocios 140–179 · Colombia, Venezuela y abogados</option></select></section>
@@ -330,12 +337,15 @@ That's a good question. I don't want to give you incorrect information, but I ca
    const emailLabel=document.createElement('label');emailLabel.className='field-label';emailLabel.textContent=lang==='es'?'✉️ CORREO DEL NEGOCIO':'✉️ BUSINESS EMAIL';
    const em=document.createElement('input');em.type='email';em.className='emailbox';em.placeholder='correo@negocio.com';em.value=r.email||'';em.setAttribute('aria-label',emailLabel.textContent);
    em.oninput=()=>{getRecord(b.id).email=em.value;persist()};
+   const extraContact=document.createElement('details');extraContact.className='date-history';
+   const extraSummary=document.createElement('summary');extraSummary.textContent=lang==='es'?'Más formas de contacto (opcional)':'More contact options (optional)';extraContact.append(extraSummary);
    const whatsappLabel=document.createElement('label');whatsappLabel.className='field-label';whatsappLabel.textContent=lang==='es'?'📱 WHATSAPP (NÚMERO O DIRECCIÓN)':'📱 WHATSAPP (NUMBER OR ADDRESS)';
    const whatsapp=document.createElement('input');whatsapp.type='text';whatsapp.className='emailbox';whatsapp.placeholder=lang==='es'?'Número o dirección de WhatsApp':'WhatsApp number or address';whatsapp.value=r.whatsapp||'';whatsapp.setAttribute('aria-label',whatsappLabel.textContent);
    whatsapp.oninput=()=>{getRecord(b.id).whatsapp=whatsapp.value;persist()};
    const textLabel=document.createElement('label');textLabel.className='field-label';textLabel.textContent=lang==='es'?'💬 NÚMERO PARA MENSAJES DE TEXTO':'💬 TEXT MESSAGE PHONE NUMBER';
    const textNumber=document.createElement('input');textNumber.type='tel';textNumber.className='emailbox';textNumber.placeholder=lang==='es'?'Número de teléfono para SMS':'Phone number for SMS';textNumber.value=r.textNumber||'';textNumber.setAttribute('aria-label',textLabel.textContent);
    textNumber.oninput=()=>{getRecord(b.id).textNumber=textNumber.value;persist()};
+   extraContact.append(whatsappLabel,whatsapp,textLabel,textNumber);
    const outcomeTitle=document.createElement('h3');outcomeTitle.textContent=lang==='es'?'MARCAR RESULTADO':'MARK RESULT';
    const outcome=document.createElement('div');outcome.className='row';
    for(const key of ['yes','wait','no','pending']){
@@ -353,6 +363,8 @@ That's a good question. I don't want to give you incorrect information, but I ca
    const followDate=document.createElement('input');followDate.type='date';followDate.id='interestNextDate'+b.id;followDate.value=r.interestNextDate||'';
    followDate.onchange=()=>{getRecord(b.id).interestNextDate=followDate.value;persist()};
    interestPanel.append(noteLabel,note,dateLabel2,followDate);
+   const followWrap=document.createElement('details');followWrap.className='date-history';followWrap.open=status==='yes'||status==='wait'||!!r.interestNextDate;
+   const followSummary=document.createElement('summary');followSummary.textContent=lang==='es'?'📝 Nota rápida y próxima fecha':'📝 Quick note and next date';followWrap.append(followSummary,interestPanel);
    const sponsor=document.createElement('label');sponsor.className='sent sponsor';const sponsorCheck=document.createElement('input');sponsorCheck.type='checkbox';sponsorCheck.checked=!!r.confirmed;
    sponsorCheck.onchange=()=>{const rec=getRecord(b.id);rec.confirmed=sponsorCheck.checked;if(rec.confirmed)rec.status='yes';persist();renderStatusLegend();renderLeads();updateGoal();renderPriorities()};
    sponsor.append(sponsorCheck,document.createTextNode(lang==='es'?' Patrocinador confirmado (solo después del pago)':' Sponsor confirmed (only after payment)'));
@@ -365,80 +377,41 @@ That's a good question. I don't want to give you incorrect information, but I ca
     const notes=document.createElement('textarea');notes.className='notes';notes.rows=2;notes.value=r.notes||'';notes.oninput=()=>{getRecord(b.id).notes=notes.value;persist()};
     history.append(notesLabel,notes);
     (r.calls||[]).forEach((c,i)=>{const line=document.createElement('div');line.textContent=`${i+1}. ${c.date} · ${c.callbackAttempt?(lang==='es'?'Devolución':'Callback')+' · ':''}${statusLabel(c.status)}`;history.append(line)});
-    inline.append(scriptTitle,script,faq,emailLabel,em,whatsappLabel,whatsapp,textLabel,textNumber,outcomeTitle,outcome,interestPanel,callback,history,sponsor);
+    inline.append(scriptTitle,script,faq,emailLabel,em,extraContact,outcomeTitle,outcome,followWrap,callback,history,sponsor);
    d.append(inline)
   }
   root.append(d)
  }
 }
 function downloadBackup(){const blob=new Blob([JSON.stringify({version:1,records:saved},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Highland_Lakes_Live_Blanca_backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}async function restoreBackup(e){const file=e.target.files[0];if(!file)return;try{const parsed=JSON.parse(await file.text());const obj=parsed.records||parsed;if(!obj||typeof obj!=='object'||Array.isArray(obj))throw Error();if(!confirm(lang==='es'?'¿Restaurar los datos guardados?':'Restore saved data?'))return;saved=obj;persist();render()}catch(err){alert(lang==='es'?'Archivo no válido':'Invalid backup file')}e.target.value=''}render();</script><script>
-/* Separate UI layer: reads existing lead records; never changes their schema or saves call outcomes. */
 (function(){
-const phrases={
- es:{kicker:'ASISTENTE DE LLAMADAS',title:'Tu próxima llamada',help:'Primero, revisa los negocios que esperan seguimiento.',simple:'Modo sencillo',full:'Vista completa',follow:'Seguimientos prioritarios',stats:['Negocios','Interesados','Por devolver llamada','Patrocinadores'],next:'PRÓXIMO NEGOCIO',none:'No hay negocios pendientes para llamar.',phone:'Llamar',open:'Abrir ficha',status:'Estado',guide:'💬 ¿Qué digo ahora? · Respuestas cortas',choose:'Seleccione la respuesta del cliente',intro:'¡Buenos días! Mi nombre es Blanca y le llamo de Highland Lakes Live. ¿Tiene un minutito para contarle cómo damos visibilidad a los negocios de nuestra comunidad?',followEmpty:'No hay seguimientos pendientes. ¡Muy bien!',callback:'Devolver llamada',interested:'Interesado',available:'Pendiente',items:['No tengo presupuesto','Mándeme información','Tengo que hablar con mi socio','Llámeme después','¿Qué es Highland Lakes Live?'],replies:['Lo entiendo perfectamente. Nuestra opción de patrocinio cuesta solo $10 al mes y puede cancelarla cuando quiera. ¿Le puedo enviar los detalles sin compromiso?','¡Con mucho gusto! ¿Me permite un correo o WhatsApp de su negocio para enviarle la información?','Claro, es importante que lo conversen. ¿Le parece si le envío un resumen para que lo revisen juntos?','Por supuesto. ¿Qué día y a qué hora le vendría mejor que le vuelva a llamar?','Es un sitio de información de nuestra región con noticias de la comunidad, el tiempo y datos útiles. Ofrecemos espacios sencillos de patrocinio para negocios locales por $10 al mes.']},
- en:{kicker:'CALLING ASSISTANT',title:'Your next call',help:'Start with businesses waiting for follow-up.',simple:'Simple mode',full:'Full view',follow:'Priority follow-ups',stats:['Businesses','Interested','Call back','Sponsors'],next:'NEXT BUSINESS',none:'No businesses are currently waiting for a call.',phone:'Call',open:'Open business',status:'Status',guide:'💬 What do I say now? · Short answers',choose:'Choose the customer response',intro:'Good morning! My name is Blanca, and I am calling from Highland Lakes Live. Do you have a quick minute so I can explain how we help local businesses get visibility?',followEmpty:'No pending follow-ups. Great work!',callback:'Call back',interested:'Interested',available:'Not called',items:['I do not have the budget','Send me information','I need to speak with my partner','Call me later','What is Highland Lakes Live?'],replies:['I completely understand. Our sponsorship option is just $10 per month, and you can cancel anytime. May I send the details with no obligation?','Of course! May I have a business email address or WhatsApp number to send the information?','Absolutely, it makes sense to discuss it together. May I send you a short summary to review?','Certainly. Which day and time would be best for me to call you back?','It is a regional information website with community updates, weather and useful data. We offer simple local business sponsorship placements for $10 per month.']}
-};
-let simple=false;
-function el(id){return document.getElementById(id)}
-function langData(){return phrases[lang==='en'?'en':'es']}
-function safeText(node,value){node.textContent=value}
-function chooseLead(id){
+function $e(id){return document.getElementById(id)}
+function activeList(){return leads.filter(b=>{const r=saved[b.id]||{};return !r.confirmed&&!['no','closed'].includes(r.status||'pending')})}
+function order(){const items=activeList();return [...items.filter(b=>saved[b.id]?.status==='wait'),...items.filter(b=>saved[b.id]?.status==='yes'),...items.filter(b=>!['wait','yes'].includes(saved[b.id]?.status))]}
+window.openEasyBusiness=function(id){
  const b=leads.find(x=>x.id===id);if(!b)return;
- selected=id;localStorage.setItem(KEY+'_selected',String(id));
  activeBatch=id<=100?1:id<=139?2:3;localStorage.setItem(KEY+'_batch',String(activeBatch));
- statusFilter='all';el('search').value='';
- el('categoryFilter').value='all';el('cityFilter').value='all';
- render();
- el('blancaAssistant').scrollIntoView({behavior:'smooth',block:'start'});
-}
-window.toggleBlancaSimpleMode=function(){simple=!simple;document.body.classList.toggle('blanca-simple',simple);el('simpleModeBtn').textContent=simple?langData().full:langData().simple};
-window.drawBlancaGuide=function(){const p=langData(),sel=el('assistantObjection'),idx=Math.max(0,Math.min(p.replies.length-1,Number(sel.value)||0));safeText(el('assistantObjectionReply'),p.replies[idx])};
-function draw(){
- const p=langData();
- [['assistantKicker',p.kicker],['assistantTitle',p.title],['assistantHelp',p.help],['assistantFollowTitle',p.follow],['assistantGuideTitle',p.guide],['assistantObjectionLabel',p.choose]].forEach(([id,v])=>safeText(el(id),v));
- safeText(el('simpleModeBtn'),simple?p.full:p.simple);
- const old=el('assistantObjection').value;el('assistantObjection').replaceChildren();p.items.forEach((v,i)=>el('assistantObjection').add(new Option(v,String(i))));el('assistantObjection').value=old&&Number(old)<p.items.length?old:'0';drawBlancaGuide();
- const pending=leads.filter(b=>{const r=saved[b.id]||{};return !r.confirmed&&!['no','closed'].includes(r.status||'pending')});
- const interested=pending.filter(b=>(saved[b.id]?.status)==='yes');
- const callbacks=pending.filter(b=>(saved[b.id]?.status)==='wait');
- const fresh=pending.filter(b=>!saved[b.id]?.status||saved[b.id].status==='pending');
- const sponsor=leads.filter(b=>saved[b.id]?.confirmed).length;
- const stats=[leads.length,interested.length,callbacks.length,sponsor];
- el('assistantStats').replaceChildren();
- stats.forEach((n,i)=>{const c=document.createElement('div');c.className='assistant-stat';const a=document.createElement('strong');a.textContent=n;const b=document.createElement('span');b.textContent=p.stats[i];c.append(a,b);el('assistantStats').append(c)});
- const queue=[...callbacks,...interested,...fresh];
- const next=leads.find(b=>b.id===selected)||queue[0];
- const root=el('assistantNext');root.replaceChildren();
- const h=document.createElement('h3');h.textContent=p.next;root.append(h);
- if(next){
-  const chooser=document.createElement('select');chooser.className='assistant-business-picker';chooser.setAttribute('aria-label',lang==='es'?'Elegir negocio':'Choose business');
-  const choices=[...queue,...leads.filter(b=>!queue.some(x=>x.id===b.id))];
-  choices.forEach(b=>chooser.add(new Option('#'+b.id+' · '+b.name+' · '+b.city,String(b.id))));
-  chooser.value=String(next.id);chooser.onchange=()=>chooseLead(Number(chooser.value));root.append(chooser);
-  const hint=document.createElement('p');hint.className='assistant-meta';hint.textContent=lang==='es'?'Use el teléfono para llamar y registre aquí el resultado. Todo se hace en esta pantalla.':'Call using your phone, then record the result here. Everything is managed on this screen.';root.append(hint);
-  const batch=next.id<=100?1:next.id<=139?2:3;
-  if(activeBatch!==batch){activeBatch=batch;localStorage.setItem(KEY+'_batch',String(batch));}
-  const card=el('leads').querySelector('.lead.selected');
-  if(card){card.classList.add('assistant-active-card');root.append(card)}
-  else {
-   const msg=document.createElement('p');msg.className='assistant-empty';msg.textContent=lang==='es'?'Seleccione el negocio para abrir su ficha completa.':'Select the business to open its complete record.';root.append(msg);
-   const open=document.createElement('button');open.className='secondary';open.textContent=p.open;open.onclick=()=>chooseLead(next.id);root.append(open);
-  }
-  const nextButton=document.createElement('button');nextButton.type='button';nextButton.className='secondary assistant-next-button';nextButton.textContent=lang==='es'?'Siguiente negocio →':'Next business →';
-  nextButton.onclick=()=>{const i=queue.findIndex(b=>b.id===next.id);const target=queue[(i+1+queue.length)%queue.length]||leads[(leads.findIndex(b=>b.id===next.id)+1)%leads.length];if(target)chooseLead(target.id)};
-  root.append(nextButton);
- }else{const e=document.createElement('p');e.className='assistant-empty';e.textContent=p.none;root.append(e)}
- const list=el('assistantFollowList');list.replaceChildren();const priority=[...callbacks,...interested].slice(0,8);
- if(!priority.length){const empty=document.createElement('p');empty.className='assistant-empty';empty.textContent=p.followEmpty;list.append(empty)}
- priority.forEach(b=>{const item=document.createElement('div');item.className='assistant-item';const box=document.createElement('div');const title=document.createElement('strong');title.textContent=b.name;const meta=document.createElement('small');meta.textContent=b.city+' · '+(saved[b.id]?.status==='wait'?p.callback:p.interested);box.append(title,meta);const btn=document.createElement('button');btn.className='secondary smallbtn';btn.textContent=p.open;btn.onclick=()=>chooseLead(b.id);item.append(box,btn);list.append(item)});
-}
-const previousRender=render;
-render=function(){
- const pending=leads.filter(b=>{const r=saved[b.id]||{};return !r.confirmed&&!['no','closed'].includes(r.status||'pending')});
- if(!leads.some(b=>b.id===selected)){const b=pending.find(b=>saved[b.id]?.status==='wait')||pending.find(b=>saved[b.id]?.status==='yes')||pending[0];if(b)selected=b.id;}
- if(selected){const b=leads.find(x=>x.id===selected);const batch=b.id<=100?1:b.id<=139?2:3;if(activeBatch!==batch){activeBatch=batch;localStorage.setItem(KEY+'_batch',String(batch));}}
- previousRender();draw()
+ statusFilter='all';selected=id;localStorage.setItem(KEY+'_selected',String(id));
+ $e('search').value='';$e('categoryFilter').value='all';$e('cityFilter').value='all';
+ render();const card=$e('leads').querySelector('.lead.selected');if(card)card.scrollIntoView({behavior:'smooth',block:'start'});
 };
-render();
+window.nextEasyBusiness=function(){const q=order(),i=q.findIndex(b=>b.id===selected),b=q[i+1]||q[0];if(b)openEasyBusiness(b.id)};
+function drawEasy(){
+ const es=lang==='es',q=order(),current=leads.find(b=>b.id===selected);
+ $e('easyEyebrow').textContent=es?'MI MESA DE TRABAJO':'MY CALLING DESK';
+ $e('easyHeading').textContent=es?'Una llamada a la vez':'One call at a time';
+ $e('easyHint').textContent=es?'Elige un negocio, llama desde tu teléfono y registra el resultado en su ficha.':'Choose a business, call using your phone, and record the result in its business card.';
+ $e('easyBusinessLabel').textContent=es?'Elegir negocio':'Choose business';
+ $e('easyNext').textContent=es?'Siguiente negocio →':'Next business →';
+ const select=$e('easyBusiness');select.replaceChildren();
+ const all=[...q,...leads.filter(b=>!q.some(x=>x.id===b.id))];
+ select.add(new Option(es?'Selecciona un negocio':'Select a business',''));
+ all.forEach(b=>select.add(new Option('#'+b.id+' · '+b.name+' · '+b.city,String(b.id))));
+ select.value=current?String(current.id):'';
+ const counts=[{n:leads.length,es:'Negocios',en:'Businesses'},{n:leads.filter(b=>saved[b.id]?.status==='yes'&&!saved[b.id]?.confirmed).length,es:'Interesados',en:'Interested'},{n:leads.filter(b=>saved[b.id]?.status==='wait').length,es:'Por llamar luego',en:'Call back'},{n:leads.filter(b=>saved[b.id]?.confirmed).length,es:'Patrocinadores',en:'Sponsors'}];
+ $e('easyStats').replaceChildren();counts.forEach(c=>{const chip=document.createElement('div');chip.className='easy-chip';const n=document.createElement('strong');n.textContent=c.n;chip.append(n,document.createTextNode(c[es?'es':'en']));$e('easyStats').append(chip)});
+ $e('easyReminder').textContent=es?'Consejo: registra el resultado después de cada llamada. La nota y la fecha son opcionales; se guardan automáticamente.':'Tip: record the result after each call. Notes and follow-up dates are optional and save automatically.';
+}
+const previous=render;render=function(){previous();drawEasy()};drawEasy();
 })();
 </script></body></html>
