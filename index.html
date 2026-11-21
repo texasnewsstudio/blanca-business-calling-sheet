@@ -75,6 +75,34 @@ select option{background:#10283d;color:#f1f7fc}
 .lead.closed .lead-toggle span:first-child,.lead.closed .meta{text-decoration:none!important}
 .lead.closed .status-pill{background:#f3b8bf!important;color:#4d1721!important;font-weight:900}
 .lead.closed .inline-workflow{color:#e9f2fa}
+
+/* High-contrast status colors across legend and every business card. */
+.legend{gap:11px!important}
+.legend button.status-pill{font-size:15px!important;font-weight:950!important;padding:13px 17px!important;border:2px solid #ffffff45!important;border-radius:11px!important;box-shadow:0 4px 12px #0006!important;letter-spacing:.01em;white-space:normal}
+.legend button.status-pill.active-filter{outline:3px solid #fff!important;outline-offset:2px!important;box-shadow:0 0 0 3px #091726,0 5px 16px #0008!important}
+.legend button.status-pill:nth-child(1){background:#315a84!important;color:#fff!important}
+.legend button.status-pill:nth-child(2){background:#65788f!important;color:#fff!important}
+.legend button.status-pill:nth-child(3){background:#087f48!important;color:#fff!important}
+.legend button.status-pill:nth-child(4){background:#f2b322!important;color:#201600!important}
+.legend button.status-pill:nth-child(5){background:#c72f40!important;color:#fff!important}
+.legend button.status-pill:nth-child(6){background:#7e3448!important;color:#fff!important}
+.legend button.status-pill:nth-child(7){background:#12a96c!important;color:#081e17!important}
+.lead{border-left-width:9px!important}
+.lead .lead-toggle .status-pill{font-size:13px!important;font-weight:950!important;padding:10px 13px!important;border-radius:9px!important;border:2px solid #ffffff35!important;box-shadow:0 3px 10px #0006!important;letter-spacing:.02em;white-space:normal;text-align:center}
+.lead .lead-toggle .status-pill[data-status="pending"]{background:#65788f!important;color:#fff!important}
+.lead .lead-toggle .status-pill[data-status="yes"]{background:#087f48!important;color:#fff!important}
+.lead .lead-toggle .status-pill[data-status="wait"]{background:#f2b322!important;color:#201600!important}
+.lead .lead-toggle .status-pill[data-status="no"]{background:#c72f40!important;color:#fff!important}
+.lead .lead-toggle .status-pill[data-status="closed"]{background:#7e3448!important;color:#fff!important}
+.lead .lead-toggle .status-pill[data-status="confirmed"]{background:#12a96c!important;color:#081e17!important}
+.lead.closed .lead-toggle .status-pill{background:#c72f40!important;color:#fff!important}
+.inline-workflow .row button{font-size:16px!important;font-weight:900!important;padding:15px 12px!important;border-width:2px!important;box-shadow:0 3px 9px #0004}
+.inline-workflow .row button.success{background:#087f48!important;color:#fff!important}
+.inline-workflow .row button.warning{background:#f2b322!important;color:#201600!important}
+.inline-workflow .row button.danger{background:#c72f40!important;color:#fff!important}
+.inline-workflow .row button.secondary{background:#65788f!important;color:#fff!important}
+.inline-workflow .row button.chosen{outline:4px solid #fff!important;outline-offset:2px!important;box-shadow:0 0 0 6px #d8b878,0 4px 14px #0007!important}
+@media(max-width:650px){.legend button.status-pill{font-size:13px!important;padding:11px 12px!important}.lead .lead-toggle .status-pill{font-size:12px!important;padding:8px 9px!important}}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div><h1>Highland Lakes Live</h1><div class="sub" id="subtitle">Hoja fácil de llamadas para Blanca</div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
 <section class="panel easy-workflow" id="easyWorkflow">
 <div class="easy-eyebrow" id="easyEyebrow">MI MESA DE TRABAJO</div>
@@ -303,7 +331,7 @@ function renderLeads(){
   const d=document.createElement('article');d.className='lead'+(selected===b.id?' selected':'')+(['no','closed'].includes(status)?' closed':'');d.style.borderLeft='8px solid '+({yes:'#14965c',wait:'#e1a000',no:'#db4545',closed:'#b91c1c',confirmed:'#168454',pending:'#a0aec0'})[status];
   const heading=document.createElement('button');heading.className='lead-toggle';heading.type='button';heading.setAttribute('aria-expanded',String(selected===b.id));
   const mainLabel=document.createElement('span');mainLabel.textContent=b.id+'. '+b.name;
-  const badge=document.createElement('span');badge.className='status-pill';badge.style.background=statusColors[status];badge.textContent=statusLabel(status);
+  const badge=document.createElement('span');badge.className='status-pill';badge.style.background=statusColors[status];badge.dataset.status=status;badge.textContent=statusLabel(status);
   const arrow=document.createElement('span');arrow.textContent=selected===b.id?'▲':'▼';
   heading.append(mainLabel,badge,arrow);heading.onclick=()=>selectLead(b.id);
   const meta=document.createElement('div');meta.className='meta';meta.textContent=b.city+' · '+(b.phone|| (lang==='es'?'Teléfono por verificar':'Phone not verified'))+(b.qualification?' · '+b.qualification:'');
