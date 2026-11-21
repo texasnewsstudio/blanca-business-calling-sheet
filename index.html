@@ -585,10 +585,12 @@ function drawEasy(){
   {key:'closed',color:'#98546c',es:'Cerrados',en:'Closed',count:leads.filter(b=>!saved[b.id]?.confirmed&&saved[b.id]?.status==='closed').length},
   {key:'confirmed',color:'#28cda2',es:'Patrocinadores',en:'Sponsors',count:leads.filter(b=>saved[b.id]?.confirmed).length}
  ];
- const contacted=leads.length-groups[0].count;
+ // Put actionable, color-coded results at the LEFT; uncalled gray at the far right.
+ const pendingGroup=groups.shift();groups.push(pendingGroup);
+ const contacted=leads.length-pendingGroup.count;
  $e('deskChartTitle').textContent=es?'DISTRIBUCIÓN DE RESULTADOS':'OUTREACH STATUS OVERVIEW';
  $e('deskChartTotal').textContent=contacted+' / '+leads.length+' '+(es?'contactados':'contacted');
- const track=$e('deskChartTrack'),legend=$e('deskChartLegend');track.replaceChildren();legend.replaceChildren();
+ const track=$e('deskChartTrack'),legend=$e('deskChartLegend');track.replaceChildren();legend.replaceChildren();track.style.direction='ltr';track.style.flexDirection='row';track.style.justifyContent='flex-start';legend.style.direction='ltr';legend.style.justifyContent='flex-start';
  groups.forEach(g=>{if(g.count){const segment=document.createElement('span');segment.style.width=(g.count/leads.length*100)+'%';segment.style.background=g.color;segment.title=(es?g.es:g.en)+': '+g.count;track.append(segment)}
  const item=document.createElement('span');item.className='desk-legend-item';const dot=document.createElement('i');dot.style.background=g.color;const label=document.createElement('span');label.textContent=(es?g.es:g.en)+' · '+g.count;item.append(dot,label);legend.append(item)});
  $e('easyReminder').textContent=es?'Cada llamada cuenta. Selecciona el negocio, registra su respuesta y continúa con el siguiente.':'Every call counts. Select the business, record the outcome, and move to the next.';
