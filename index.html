@@ -62,6 +62,9 @@ select option{background:#10283d;color:#f1f7fc}
 .callback-date-box label{font-weight:850;color:#ffdf8f;font-size:15px}
 .callback-date-box input{width:100%;max-width:290px;padding:12px;border:1px solid #b69b66;border-radius:8px;background:#10283d;color:#fff;color-scheme:dark;font:inherit}
 .callback-date-box small{color:#d7c9a8;font-size:12px}
+
+/* Keep WhatsApp and SMS contact fields visible without expandable controls. */
+.contact-fields-always-visible{display:grid;gap:9px;padding:5px 0 12px}.contact-fields-always-visible .field-label{margin:5px 0 0}.contact-fields-always-visible .emailbox{width:100%;margin:0}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div><h1>Highland Lakes Live</h1><div class="sub" id="subtitle">Hoja fácil de llamadas para Blanca</div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
 <section class="panel easy-workflow" id="easyWorkflow">
 <div class="easy-eyebrow" id="easyEyebrow">MI MESA DE TRABAJO</div>
@@ -344,8 +347,7 @@ That's a good question. I don't want to give you incorrect information, but I ca
    const emailLabel=document.createElement('label');emailLabel.className='field-label';emailLabel.textContent=lang==='es'?'✉️ CORREO DEL NEGOCIO':'✉️ BUSINESS EMAIL';
    const em=document.createElement('input');em.type='email';em.className='emailbox';em.placeholder='correo@negocio.com';em.value=r.email||'';em.setAttribute('aria-label',emailLabel.textContent);
    em.oninput=()=>{getRecord(b.id).email=em.value;persist()};
-   const extraContact=document.createElement('details');extraContact.className='date-history';
-   const extraSummary=document.createElement('summary');extraSummary.textContent=lang==='es'?'Más formas de contacto (opcional)':'More contact options (optional)';extraContact.append(extraSummary);
+   const extraContact=document.createElement('div');extraContact.className='contact-fields-always-visible';
    const whatsappLabel=document.createElement('label');whatsappLabel.className='field-label';whatsappLabel.textContent=lang==='es'?'📱 WHATSAPP (NÚMERO O DIRECCIÓN)':'📱 WHATSAPP (NUMBER OR ADDRESS)';
    const whatsapp=document.createElement('input');whatsapp.type='text';whatsapp.className='emailbox';whatsapp.placeholder=lang==='es'?'Número o dirección de WhatsApp':'WhatsApp number or address';whatsapp.value=r.whatsapp||'';whatsapp.setAttribute('aria-label',whatsappLabel.textContent);
    whatsapp.oninput=()=>{getRecord(b.id).whatsapp=whatsapp.value;persist()};
