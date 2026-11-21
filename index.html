@@ -38,6 +38,18 @@ select option{background:#10283d;color:#f1f7fc}
 /* Bilingual calling assistant — additive UI, independent of lead storage */
 .assistant-panel{border-color:#526e80}.assistant-heading{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;flex-wrap:wrap}.assistant-kicker{font-size:11px;font-weight:900;letter-spacing:.16em;color:#d8b878;margin-bottom:7px}.assistant-heading h2{margin:0 0 6px}.assistant-help{color:#b2c6d7;margin:0;font-size:13px}.assistant-view button{white-space:nowrap}.assistant-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:19px 0}.assistant-stat{background:linear-gradient(155deg,#203d55,#172e44);border:1px solid #3c5870;border-radius:11px;padding:14px}.assistant-stat strong{display:block;color:#fff;font-size:26px;font-variant-numeric:tabular-nums}.assistant-stat span{color:#b8c9d8;font-size:12px}.assistant-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:14px}.assistant-next,.assistant-followups{background:#10283d;border:1px solid #3c5870;border-radius:12px;padding:17px;min-width:0}.assistant-next h3,.assistant-followups h3{color:#f4f7fc;margin:0 0 12px;font-size:17px}.assistant-business{font-size:21px;font-weight:800;color:#fff;margin:9px 0}.assistant-meta{font-size:13px;color:#b8c9d8;margin:5px 0 12px}.assistant-script{background:#0b1d2e;border-left:3px solid #d8b878;padding:13px;border-radius:8px;color:#e5edf6;line-height:1.6;font-size:15px;margin:13px 0}.assistant-actions{display:flex;gap:9px;flex-wrap:wrap}.assistant-actions button,.assistant-actions a{flex:1;min-width:120px;text-align:center}.assistant-item{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid #345066;padding:11px 0}.assistant-item:first-of-type{border-top:0}.assistant-item strong{display:block;color:#edf5fb;font-size:14px}.assistant-item small{display:block;color:#afc3d3;margin-top:4px}.assistant-item button{flex-shrink:0}.assistant-guide{margin-top:15px;border:1px solid #3c5870;background:#10283d;border-radius:11px;padding:15px}.assistant-guide summary{cursor:pointer;font-weight:800;color:#f1e0b6}.assistant-guide-body{padding-top:13px}.assistant-guide label{display:block;margin-bottom:8px;font-size:13px;color:#c2d1de}.assistant-guide select{width:100%;background:#0c1e2f;color:#f1f7fc;border:1px solid #456178;border-radius:9px;padding:11px}.assistant-reply{margin-top:12px;padding:15px;background:#0b1d2e;border-left:3px solid #d8b878;border-radius:8px;line-height:1.6;color:#e7f1fa}.assistant-empty{font-size:14px;color:#b8c9d8}.blanca-simple main>section:not(#blancaAssistant),.blanca-simple main>.foot{display:none}.blanca-simple main>header{display:block}.blanca-simple #blancaAssistant{display:block}.blanca-simple .assistant-followups{display:block}
 @media(max-width:750px){.assistant-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.assistant-grid{grid-template-columns:1fr}.assistant-panel{padding:18px 15px}}
+
+/* Same-screen workflow: the actual editable business card lives inside the assistant. */
+.assistant-grid{grid-template-columns:minmax(0,1.45fr) minmax(260px,.7fr)}
+.assistant-business-picker{display:block;width:100%;padding:13px;background:#0c1e2f;color:#fff;border:1px solid #607c91;border-radius:9px;font-size:15px;font-weight:750}
+.assistant-active-card{margin-top:14px;background:#142d42!important;border:1px solid #4c6a80!important;border-left:5px solid #d8b878!important}
+.assistant-active-card .inline-workflow{padding:16px}
+.assistant-active-card .lead-toggle{width:100%}
+.assistant-next-button{margin-top:13px;width:100%}
+.assistant-active-card .date-history{background:#152e44!important;border-color:#456c88!important;color:#eaf2fa}
+.assistant-active-card .date-history summary{color:#eaf2fa}
+.assistant-active-card .date-history .script{color:#eaf2fa}
+@media(max-width:900px){.assistant-grid{grid-template-columns:1fr}}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div><h1>Highland Lakes Live</h1><div class="sub" id="subtitle">Hoja fácil de llamadas para Blanca</div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
 <section class="panel assistant-panel" id="blancaAssistant" aria-label="Calling assistant">
 <div class="assistant-heading"><div><div class="assistant-kicker" id="assistantKicker">ASISTENTE DE LLAMADAS</div><h2 id="assistantTitle">Tu próxima llamada</h2><p class="assistant-help" id="assistantHelp">Empieza con los negocios que necesitan seguimiento.</p></div><div class="assistant-view"><button type="button" class="secondary" id="simpleModeBtn" onclick="toggleBlancaSimpleMode()">Modo sencillo</button></div></div>
@@ -372,13 +384,12 @@ function langData(){return phrases[lang==='en'?'en':'es']}
 function safeText(node,value){node.textContent=value}
 function chooseLead(id){
  const b=leads.find(x=>x.id===id);if(!b)return;
- simple=false;document.body.classList.remove('blanca-simple');
- activeBatch=b.id<=100?1:b.id<=139?2:3;
- localStorage.setItem(KEY+'_batch',String(activeBatch));
- statusFilter='all';selected=b.id;
- localStorage.setItem(KEY+'_selected',String(id));
- el('search').value='';render();
- el('leads').querySelector('.lead.selected')?.scrollIntoView({behavior:'smooth',block:'start'});
+ selected=id;localStorage.setItem(KEY+'_selected',String(id));
+ activeBatch=id<=100?1:id<=139?2:3;localStorage.setItem(KEY+'_batch',String(activeBatch));
+ statusFilter='all';el('search').value='';
+ el('categoryFilter').value='all';el('cityFilter').value='all';
+ render();
+ el('blancaAssistant').scrollIntoView({behavior:'smooth',block:'start'});
 }
 window.toggleBlancaSimpleMode=function(){simple=!simple;document.body.classList.toggle('blanca-simple',simple);el('simpleModeBtn').textContent=simple?langData().full:langData().simple};
 window.drawBlancaGuide=function(){const p=langData(),sel=el('assistantObjection'),idx=Math.max(0,Math.min(p.replies.length-1,Number(sel.value)||0));safeText(el('assistantObjectionReply'),p.replies[idx])};
@@ -395,22 +406,39 @@ function draw(){
  const stats=[leads.length,interested.length,callbacks.length,sponsor];
  el('assistantStats').replaceChildren();
  stats.forEach((n,i)=>{const c=document.createElement('div');c.className='assistant-stat';const a=document.createElement('strong');a.textContent=n;const b=document.createElement('span');b.textContent=p.stats[i];c.append(a,b);el('assistantStats').append(c)});
- const next=[...callbacks,...interested,...fresh][0];const root=el('assistantNext');root.replaceChildren();
+ const queue=[...callbacks,...interested,...fresh];
+ const next=leads.find(b=>b.id===selected)||queue[0];
+ const root=el('assistantNext');root.replaceChildren();
  const h=document.createElement('h3');h.textContent=p.next;root.append(h);
  if(next){
- const r=saved[next.id]||{};const name=document.createElement('div');name.className='assistant-business';name.textContent=next.name;const meta=document.createElement('div');meta.className='assistant-meta';meta.textContent=next.city+' · '+(next.phone||'—')+' · '+p.status+': '+statusLabel(r.status||'pending');
- const script=document.createElement('div');script.className='assistant-script';script.textContent=p.intro;
- const actions=document.createElement('div');actions.className='assistant-actions';
- if(next.phone){const a=document.createElement('a');a.className='btn primary';a.href='tel:'+next.phone.replace(/[^0-9+]/g,'');a.textContent='📞 '+p.phone;actions.append(a)}
- const btn=document.createElement('button');btn.className='secondary';btn.textContent=p.open;btn.onclick=()=>chooseLead(next.id);actions.append(btn);
- root.append(name,meta,script,actions);
+  const chooser=document.createElement('select');chooser.className='assistant-business-picker';chooser.setAttribute('aria-label',lang==='es'?'Elegir negocio':'Choose business');
+  const choices=[...queue,...leads.filter(b=>!queue.some(x=>x.id===b.id))];
+  choices.forEach(b=>chooser.add(new Option('#'+b.id+' · '+b.name+' · '+b.city,String(b.id))));
+  chooser.value=String(next.id);chooser.onchange=()=>chooseLead(Number(chooser.value));root.append(chooser);
+  const hint=document.createElement('p');hint.className='assistant-meta';hint.textContent=lang==='es'?'Use el teléfono para llamar y registre aquí el resultado. Todo se hace en esta pantalla.':'Call using your phone, then record the result here. Everything is managed on this screen.';root.append(hint);
+  const batch=next.id<=100?1:next.id<=139?2:3;
+  if(activeBatch!==batch){activeBatch=batch;localStorage.setItem(KEY+'_batch',String(batch));}
+  const card=el('leads').querySelector('.lead.selected');
+  if(card){card.classList.add('assistant-active-card');root.append(card)}
+  else {
+   const msg=document.createElement('p');msg.className='assistant-empty';msg.textContent=lang==='es'?'Seleccione el negocio para abrir su ficha completa.':'Select the business to open its complete record.';root.append(msg);
+   const open=document.createElement('button');open.className='secondary';open.textContent=p.open;open.onclick=()=>chooseLead(next.id);root.append(open);
+  }
+  const nextButton=document.createElement('button');nextButton.type='button';nextButton.className='secondary assistant-next-button';nextButton.textContent=lang==='es'?'Siguiente negocio →':'Next business →';
+  nextButton.onclick=()=>{const i=queue.findIndex(b=>b.id===next.id);const target=queue[(i+1+queue.length)%queue.length]||leads[(leads.findIndex(b=>b.id===next.id)+1)%leads.length];if(target)chooseLead(target.id)};
+  root.append(nextButton);
  }else{const e=document.createElement('p');e.className='assistant-empty';e.textContent=p.none;root.append(e)}
  const list=el('assistantFollowList');list.replaceChildren();const priority=[...callbacks,...interested].slice(0,8);
  if(!priority.length){const empty=document.createElement('p');empty.className='assistant-empty';empty.textContent=p.followEmpty;list.append(empty)}
  priority.forEach(b=>{const item=document.createElement('div');item.className='assistant-item';const box=document.createElement('div');const title=document.createElement('strong');title.textContent=b.name;const meta=document.createElement('small');meta.textContent=b.city+' · '+(saved[b.id]?.status==='wait'?p.callback:p.interested);box.append(title,meta);const btn=document.createElement('button');btn.className='secondary smallbtn';btn.textContent=p.open;btn.onclick=()=>chooseLead(b.id);item.append(box,btn);list.append(item)});
 }
 const previousRender=render;
-render=function(){previousRender();draw()};
-draw();
+render=function(){
+ const pending=leads.filter(b=>{const r=saved[b.id]||{};return !r.confirmed&&!['no','closed'].includes(r.status||'pending')});
+ if(!leads.some(b=>b.id===selected)){const b=pending.find(b=>saved[b.id]?.status==='wait')||pending.find(b=>saved[b.id]?.status==='yes')||pending[0];if(b)selected=b.id;}
+ if(selected){const b=leads.find(x=>x.id===selected);const batch=b.id<=100?1:b.id<=139?2:3;if(activeBatch!==batch){activeBatch=batch;localStorage.setItem(KEY+'_batch',String(batch));}}
+ previousRender();draw()
+};
+render();
 })();
 </script></body></html>
