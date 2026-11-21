@@ -117,13 +117,36 @@ header .sub{font-size:15px!important;font-weight:550;color:#e0effb!important;mar
 header .lang{font-size:14px!important;font-weight:850!important;padding:12px 17px!important;border:2px solid #a6d3f07a!important;background:#092c4e!important;color:#f4faff!important;box-shadow:0 3px 10px #001a3470}
 header .lang.active{background:#e7c17b!important;color:#102a46!important;border-color:#ffdf9d!important}
 @media(max-width:650px){header{padding:24px 19px!important}.executive-eyebrow{font-size:10px;letter-spacing:.12em}header h1#executiveTitle{font-size:32px!important}header .lang{padding:10px 13px!important}}
+
+/* Blanca's premium executive outreach desk. */
+.easy-workflow{background:linear-gradient(125deg,#0b2a4a,#10466f 58%,#123655)!important;border:2px solid #398bc0!important;padding:30px 32px!important;box-shadow:0 20px 48px #0006,inset 0 1px #a5d5ff40!important;border-radius:19px!important}
+.easy-eyebrow{color:#e7c37e!important;font-size:14px!important;letter-spacing:.17em!important;font-weight:950!important;margin-bottom:12px!important}
+.easy-workflow h2{font-family:Georgia,"Times New Roman",serif;color:#fff!important;font-size:clamp(27px,3vw,39px)!important;line-height:1.15;margin:0 0 12px!important}
+.easy-hint{font-size:15px!important;color:#d3e6f5!important;max-width:780px;line-height:1.6!important}
+.easy-bar{margin-top:22px;grid-template-columns:minmax(0,1fr) auto!important;gap:12px!important}
+.easy-bar label{color:#dbeeff!important;font-size:14px!important;letter-spacing:.04em}
+.easy-bar select{background:#09233d!important;border:2px solid #73b6e1!important;padding:16px!important;font-size:16px!important}
+.easy-bar button{background:#e4bf77!important;color:#132c44!important;border:2px solid #ffe0a1!important;font-weight:900!important;padding:15px 22px!important}
+.easy-stats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px!important;margin-top:24px!important}
+.easy-chip{background:linear-gradient(150deg,#184e76,#113756)!important;border:1px solid #5288aa!important;border-top:3px solid #e0bb75!important;padding:17px 14px!important;border-radius:12px!important;color:#d6e9f7!important;font-size:13px!important;font-weight:750;min-width:0}
+.easy-chip strong{display:block!important;color:#fff!important;font-size:32px!important;margin:0 0 5px!important;line-height:1.1}
+.desk-chart{margin-top:22px;padding:20px;background:#071f36aa;border:1px solid #5186a8;border-radius:13px}
+.desk-chart-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#e7f4ff;font-size:13px;letter-spacing:.04em}
+.desk-chart-head strong{color:#f5d99f;font-size:14px;letter-spacing:.1em}
+.desk-chart-track{display:flex;height:21px;width:100%;border-radius:30px;overflow:hidden;background:#203d57;margin:15px 0;box-shadow:inset 0 2px 5px #0006}
+.desk-chart-track span{height:100%;display:block;min-width:0}
+.desk-chart-legend{display:flex;gap:11px 18px;flex-wrap:wrap}
+.desk-legend-item{display:inline-flex;align-items:center;gap:7px;color:#e4eff9;font-size:12px;font-weight:750}
+.desk-legend-item i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.easy-reminder{margin-top:19px!important;color:#c7e1f1!important;font-size:13px!important}
+@media(max-width:700px){.easy-workflow{padding:22px 16px!important}.easy-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.easy-bar{grid-template-columns:1fr!important}.easy-bar button{width:100%}.desk-chart{padding:14px}}
 </style></head><body><aside class="calling-rail" aria-label="Call progress and priority"><section class="rail-counter"><div id="railCallsTitle">📞 LLAMADAS HOY</div><div id="railCallsNumber">0</div><div id="railCallsSub">Llamadas registradas hoy</div></section></aside><main><header><div class="top"><div class="executive-identity"><div class="executive-eyebrow">HIGHLAND LAKES LIVE <span class="executive-dot">◆</span> OUTREACH DESK</div><h1 id="executiveTitle">Blanca’s Calling Sheet</h1><div class="sub" id="subtitle">Panel profesional de llamadas de Blanca</div><div class="executive-accent"></div></div><div><button class="lang" id="english" onclick="changeLang('en')">English</button> <button class="lang active" id="spanish" onclick="changeLang('es')">Español</button></div></div></header>
 <section class="panel easy-workflow" id="easyWorkflow">
 <div class="easy-eyebrow" id="easyEyebrow">MI MESA DE TRABAJO</div>
 <h2 id="easyHeading">Una llamada a la vez</h2>
 <p class="easy-hint" id="easyHint">Elige un negocio, llama desde tu teléfono y registra el resultado en su ficha.</p>
 <div class="easy-bar"><label for="easyBusiness" id="easyBusinessLabel">Negocio</label><select id="easyBusiness" onchange="openEasyBusiness(Number(this.value))"></select><button class="secondary" id="easyNext" onclick="nextEasyBusiness()">Siguiente →</button></div>
-<div class="easy-stats" id="easyStats"></div>
+<div class="easy-stats" id="easyStats"></div><div class="desk-chart"><div class="desk-chart-head"><strong id="deskChartTitle">Estado de contactos</strong><span id="deskChartTotal">0 / 179</span></div><div class="desk-chart-track" id="deskChartTrack" role="img" aria-label="Call status distribution"></div><div class="desk-chart-legend" id="deskChartLegend"></div></div>
 <div class="easy-reminder" id="easyReminder"></div>
 </section>
 <section class="goal"><h2 id="goalTitle">🎯 META: 50 PATROCINADORES</h2><div class="numbers"><span id="total">0</span> / 50 &nbsp;·&nbsp; <span id="revenue">$0</span> / $500</div><div class="track"><div class="fill" id="fill"></div></div><p class="mini" id="goalNote" style="color:#d7e2f1">Estimación a $10 por patrocinador al mes; no confirma pagos.</p></section>
@@ -449,9 +472,9 @@ window.openEasyBusiness=function(id){
 window.nextEasyBusiness=function(){const q=order(),i=q.findIndex(b=>b.id===selected),b=q[i+1]||q[0];if(b)openEasyBusiness(b.id)};
 function drawEasy(){
  const es=lang==='es',q=order(),current=leads.find(b=>b.id===selected);
- $e('easyEyebrow').textContent=es?'MI MESA DE TRABAJO':'MY CALLING DESK';
- $e('easyHeading').textContent=es?'Una llamada a la vez':'One call at a time';
- $e('easyHint').textContent=es?'Elige un negocio, llama desde tu teléfono y registra el resultado en su ficha.':'Choose a business, call using your phone, and record the result in its business card.';
+ $e('easyEyebrow').textContent=es?'CENTRO DE GESTIÓN DE BLANCA':'BLANCA’S CALLING DESK';
+ $e('easyHeading').textContent=es?'Panel ejecutivo de llamadas':'Executive Calling Dashboard';
+ $e('easyHint').textContent=es?'Tu centro de trabajo: selecciona un negocio, realiza la llamada y registra el resultado. El progreso se actualiza automáticamente.':'Your professional outreach desk: select a business, make the call, and record the outcome. Progress updates automatically.';
  $e('easyBusinessLabel').textContent=es?'Elegir negocio':'Choose business';
  $e('easyNext').textContent=es?'Siguiente negocio →':'Next business →';
  const select=$e('easyBusiness');select.replaceChildren();
@@ -461,7 +484,21 @@ function drawEasy(){
  select.value=current?String(current.id):'';
  const counts=[{n:leads.length,es:'Negocios',en:'Businesses'},{n:leads.filter(b=>saved[b.id]?.status==='yes'&&!saved[b.id]?.confirmed).length,es:'Interesados',en:'Interested'},{n:leads.filter(b=>saved[b.id]?.status==='wait').length,es:'Por llamar luego',en:'Call back'},{n:leads.filter(b=>saved[b.id]?.confirmed).length,es:'Patrocinadores',en:'Sponsors'}];
  $e('easyStats').replaceChildren();counts.forEach(c=>{const chip=document.createElement('div');chip.className='easy-chip';const n=document.createElement('strong');n.textContent=c.n;chip.append(n,document.createTextNode(c[es?'es':'en']));$e('easyStats').append(chip)});
- $e('easyReminder').textContent=es?'Consejo: registra el resultado después de cada llamada. La nota y la fecha son opcionales; se guardan automáticamente.':'Tip: record the result after each call. Notes and follow-up dates are optional and save automatically.';
+ const groups=[
+  {key:'pending',color:'#72869d',es:'Sin llamar',en:'Not called',count:leads.filter(b=>!saved[b.id]?.confirmed&&(!saved[b.id]?.status||saved[b.id]?.status==='pending')).length},
+  {key:'yes',color:'#1aba78',es:'Interesados',en:'Interested',count:leads.filter(b=>!saved[b.id]?.confirmed&&saved[b.id]?.status==='yes').length},
+  {key:'wait',color:'#efb32f',es:'Llamar luego',en:'Call later',count:leads.filter(b=>!saved[b.id]?.confirmed&&saved[b.id]?.status==='wait').length},
+  {key:'no',color:'#e34e60',es:'No interesados',en:'Not interested',count:leads.filter(b=>!saved[b.id]?.confirmed&&saved[b.id]?.status==='no').length},
+  {key:'closed',color:'#98546c',es:'Cerrados',en:'Closed',count:leads.filter(b=>!saved[b.id]?.confirmed&&saved[b.id]?.status==='closed').length},
+  {key:'confirmed',color:'#28cda2',es:'Patrocinadores',en:'Sponsors',count:leads.filter(b=>saved[b.id]?.confirmed).length}
+ ];
+ const contacted=leads.length-groups[0].count;
+ $e('deskChartTitle').textContent=es?'DISTRIBUCIÓN DE RESULTADOS':'OUTREACH STATUS OVERVIEW';
+ $e('deskChartTotal').textContent=contacted+' / '+leads.length+' '+(es?'contactados':'contacted');
+ const track=$e('deskChartTrack'),legend=$e('deskChartLegend');track.replaceChildren();legend.replaceChildren();
+ groups.forEach(g=>{if(g.count){const segment=document.createElement('span');segment.style.width=(g.count/leads.length*100)+'%';segment.style.background=g.color;segment.title=(es?g.es:g.en)+': '+g.count;track.append(segment)}
+ const item=document.createElement('span');item.className='desk-legend-item';const dot=document.createElement('i');dot.style.background=g.color;const label=document.createElement('span');label.textContent=(es?g.es:g.en)+' · '+g.count;item.append(dot,label);legend.append(item)});
+ $e('easyReminder').textContent=es?'Cada llamada cuenta. Selecciona el negocio, registra su respuesta y continúa con el siguiente.':'Every call counts. Select the business, record the outcome, and move to the next.';
 }
 const previous=render;render=function(){previous();drawEasy()};drawEasy();
 })();
