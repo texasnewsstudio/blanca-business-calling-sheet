@@ -315,6 +315,15 @@ function checkInterest(id){return true}
 function callbackCount(rec){return (rec.calls||[]).filter(c=>c.callbackAttempt===true).length}
 function recordOutcome(id,key){
  const rec=getRecord(id);
+ if(rec.status==='no' && key==='yes' && !rec.confirmed){
+  rec.status='yes';
+  delete rec.closedReason;
+  rec.interestNextDate='';
+  if(!persist())return;
+  statusFilter='all';
+  render();
+  return;
+ }
  if(rec.status==='closed'||rec.status==='no'||rec.confirmed){
   alert(lang==='es'?'Este negocio ya está finalizado.':'This business is already finished.');return;
  }
